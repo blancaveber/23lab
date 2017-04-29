@@ -37,3 +37,25 @@ int has_right_child(Node* node) {
 int has_left_child(Node* node) {
     return node->left != NULL;
 }
+
+int get_node_height(Node* node) {
+    int height_left = 0, height_right = 0;
+    if (has_left_child(node)) {
+        height_left = get_node_height(node->left);
+    }
+    if (has_right_child(node)) {
+        height_right = get_node_height(node->right);
+    }
+    return height_right > height_left ? ++height_right : ++height_left;
+}
+
+int get_balance_factor(Node* node) {
+    int bf = 0;
+    if (has_left_child(node)) {
+        bf += get_node_height(node->left);
+    }
+    if (has_right_child(node)) {
+        bf -= get_node_height(node->right);
+    }
+    return bf;
+}
